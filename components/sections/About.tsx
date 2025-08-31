@@ -9,7 +9,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 export function About() {
   return (
     <section id="about" className="scroll-mt-24 py-32">
-      <div className="">
+      <div className="px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 50 }} 
@@ -38,11 +38,11 @@ export function About() {
               
               <div className="grid grid-cols-3 gap-8 pt-8">
                 <div className="text-center space-y-2">
-                  <div className="text-4xl font-light text-accent">50+</div>
+                  <div className="text-4xl font-light text-accent">23+</div>
                   <div className="text-sm uppercase tracking-wider text-muted">Projects</div>
                 </div>
                 <div className="text-center space-y-2">
-                  <div className="text-4xl font-light text-accent">5+</div>
+                  <div className="text-4xl font-light text-accent">3+</div>
                   <div className="text-sm uppercase tracking-wider text-muted">Years</div>
                 </div>
                 <div className="text-center space-y-2">
@@ -55,7 +55,7 @@ export function About() {
             <div className="relative">
               <div className="aspect-[3/4] relative overflow-hidden rounded-2xl">
                 <Image 
-                  src="/images/about.png" 
+                  src="/images/profile.png" 
                   alt="About Selihom Kidane" 
                   fill 
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700" 
@@ -68,3 +68,4 @@ export function About() {
     </section>
   );
 }
+

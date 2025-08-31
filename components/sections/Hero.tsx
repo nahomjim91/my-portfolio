@@ -8,7 +8,7 @@ import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
-const roles = ["Web Designer", "Digital Creator", "Design Strategist"];
+const roles = ["Web Designer", "Mobile App Developer", "Web Developer", "UI/UX Enthusiast", "Freelancer"];
 
 function useTyped(words: string[], speed = 70, pause = 1200) {
   const [index, setIndex] = React.useState(0);

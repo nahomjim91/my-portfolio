@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Linkedin, Twitter, ArrowUp, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Instagram, ArrowUp, Mail, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -13,24 +13,17 @@ export function Footer() {
   };
 
   const socialLinks = [
-    { icon: Github, href: "#", label: "GitHub" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Github, href: "https://github.com/nahomjim91", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/selihom-kidane-b50034276", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/selihom.k/", label: "Instagram" },
   ];
-
-  const navLinks = [
-    { href: "#about", label: "About" },
-    { href: "#skills", label: "Skills" },
-    { href: "#projects", label: "Work" },
-    { href: "#contact", label: "Contact" },
-  ];
-
   return (
     <footer className="relative overflow-hidden">
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-t from-muted/5 to-transparent" />
       
-      <div className="relative">
+      <div className="relative px-4 sm:px-6 lg:px-8">
+        
         {/* Main footer content */}
         <div className=" py-20">
           <div className="max-w-7xl mx-auto">
@@ -57,6 +50,7 @@ export function Footer() {
                     <a
                       key={label}
                       href={href}
+                      target="_blank"
                       aria-label={label}
                       className="w-12 h-12 rounded-full border border-border/50 flex items-center justify-center hover:border-accent/50 hover:text-accent transition-all duration-300 hover:scale-110"
                     >
