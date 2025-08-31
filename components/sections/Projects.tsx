@@ -130,3 +130,4 @@ function ProjectCard({ id, title, description, image, tech, links, index }: (typ
   );
 }
 
+

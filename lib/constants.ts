@@ -6,8 +6,8 @@ export type Project = {
   description: string;
   image: string;
   tech: string[];
-  category: "Web" | "UI/UX" | "Bot" | "Marketing";
-  links?: { demo?: string; github?: string };
+  category: "Web" | "UI/UX" | "Bot" | "Marketing" | "E-Commerce" | "Portfolio" | "Business";
+  links?: { demo?: string; github?: string , video?: string };
 };
 
 export const nav = [
@@ -23,87 +23,100 @@ export const stats = [
   { label: "Happy Clients", value: 22 },
 ];
 
-export const skills = [
-  {
-    category: "Frontend",
-    items: [
-      { name: "React", level: 90 },
-      { name: "Next.js", level: 88 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Framer Motion", level: 85 },
-    ],
-  },
-  {
-    category: "Backend",
-    items: [
-      { name: "Node.js", level: 86 },
-      { name: "Express", level: 80 },
-      { name: "Firebase", level: 78 },
-      { name: "PostgreSQL", level: 74 },
-    ],
-  },
-  {
-    category: "Design",
-    items: [
-      { name: "UI/UX Design", level: 92 },
-      { name: "Figma", level: 88 },
-      { name: "Prototyping", level: 84 },
-    ],
-  },
-  {
-    category: "Specialized",
-    items: [
-      { name: "Telegram Bot Dev", level: 82 },
-      { name: "E-commerce", level: 80 },
-      { name: "SaaS Dashboards", level: 85 },
-    ],
-  },
-  {
-    category: "Tools",
-    items: [
-      { name: "Git & GitHub", level: 88 },
-      { name: "Jest", level: 70 },
-      { name: "Vercel", level: 86 },
-    ],
-  },
-];
+
 
 export const projects: Project[] = [
+
   {
-    id: "ecommerce",
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce with product management, cart, and checkout.",
-    image: "/images/projects/ecommerce.png",
-    tech: ["Next.js", "Tailwind", "Stripe"],
-    category: "Web",
-    links: { demo: "#", github: "#" },
+    id: "spice-marketplace",
+    title: "Spice Marketplace",
+    description: "Modern e-commerce platform for premium spices with React, TypeScript, and ShadCN UI.",
+    image: "/images/projects/spice-marketplace.png",
+    tech: ["React", "TypeScript", "Vite", "TailwindCSS", "ShadCN UI"],
+    category: "E-Commerce",
+    links: { 
+      demo: "https://spice-marketplace.vercel.app/", 
+      github: "https://github.com/nahomjim91/spice-marketplace/",
+      video: "/videos/projects/spice-marketplace-demo.mp4"
+    },
   },
   {
-    id: "banking-ui",
-    title: "Mobile Banking App (UI/UX)",
-    description: "Clean, secure, and intuitive mobile banking interface.",
-    image: "/images/projects/banking-ui.png",
-    tech: ["Figma", "Prototyping"],
-    category: "UI/UX",
-    links: { demo: "#" },
+    id: "wedding-photographer",
+    title: "Enchanting Wedding Photography",
+    description: "Elegant wedding photography portfolio with stunning galleries and client testimonials.",
+    image: "/images/projects/wedding-photographer.png",
+    tech: ["React", "Next.js", "TailwindCSS", "Framer Motion"],
+    category: "Portfolio",
+    links: { 
+      demo: "https://wedding-photographer-portfolio-3wcw.vercel.app/", 
+      github: "https://github.com/nahomjim91/wedding-photographer-portfolio",
+      video: "/videos/projects/wedding-portfolio-showcase.mp4"
+    },
   },
   {
+    id: "luxury-perfume",
+    title: "Luxury Fragrance Store",
+    description: "Premium e-commerce experience for luxury perfumes with signature scent discovery.",
+    image: "/images/projects/luxury-perfume.png",
+    tech: ["React", "Next.js", "TailwindCSS", "Stripe"],
+    category: "E-Commerce",
+    links: { 
+      demo: "https://luxury-perfume-ecommerce-ten.vercel.app/", 
+      github: "https://github.com/nahomjim91/luxury-perfume-ecommerce",
+      video: "/videos/projects/luxury-perfume-demo.mp4"
+    },
+  },
+
+  {
+    id: "photographer-portfolio",
+    title: "MESK Photography Studio",
+    description: "Professional photographer portfolio showcasing wedding, engagement, and studio work.",
+    image: "/images/projects/photographer-portfolio.png",
+    tech: ["React", "Next.js", "TailwindCSS", "Image Optimization"],
+    category: "Portfolio",
+    links: { 
+      demo: "https://test2-khaki-theta.vercel.app/", 
+      video: "/videos/projects/photography-portfolio-tour.mp4"
+    },
+  },
+  {
+    id: "sweet-jerry-bakery",
+    title: "Sweet Jerry Bakery",
+    description: "Charming bakery website with custom cake ordering and sweet memory creation.",
+    image: "/images/projects/sweet-jerry-bakery.png",
+    tech: ["React", "Next.js", "TailwindCSS", "Contact Forms"],
+    category: "Business",
+    links: { 
+      demo: "https://sweet-jerry-bakery.vercel.app/", 
+      github: "https://github.com/nahomjim91/sweet-jerry-bakery",
+      video: "/videos/projects/bakery-experience.mp4"
+    },
+  },
+  {
+    id: "primaeri",
+    title: "Primaeri",
+    description: "A Modern portfolio website for well known Eritrean Photographer Filipo. Show his work and services.",
+    image: "/images/projects/primaeri.png",
+    tech: ["Next.js", "TailwindCSS", "Framer Motion", "SEO Optimization" , "Image Optimization" , ],
+    category: "Business",
+    links: { 
+      demo: "https://primaeri.com/", 
+      github: "#",
+      video: "/videos/projects/consulting-overview.mp4"
+    },
+  },
+    {
     id: "telegram-bot",
-    title: "Telegram Shopping Bot",
-    description: "Conversational commerce experience via Telegram.",
+    title: "Telegram Dating Bot",
+    description: "Engaging and interactive dating experience via Telegram.",
     image: "/images/projects/telegram-bot.png",
     tech: ["Node.js", "Telegraf"],
     category: "Bot",
-    links: { demo: "#", github: "#" },
-  },
-  {
-    id: "saas-dashboard",
-    title: "SaaS Dashboard",
-    description: "Analytics, billing, and user management dashboard.",
-    image: "/images/projects/saas-dashboard.png",
-    tech: ["React", "Chart.js"],
-    category: "Web",
-    links: { demo: "#", github: "#" },
+    links: { 
+      demo: "https://t.me/fyl_datingbot", 
+      github: "#",
+      video: "/videos/projects/telegram-bot-demo.mp4"
+    },
   },
   {
     id: "portfolio",
@@ -112,15 +125,11 @@ export const projects: Project[] = [
     image: "/images/projects/portfolio.png",
     tech: ["Next.js", "Framer Motion"],
     category: "Web",
-    links: { demo: "#" },
-  },
-  {
-    id: "landing",
-    title: "Product Landing Page",
-    description: "High-converting marketing landing page.",
-    image: "/images/projects/landing.png",
-    tech: ["Next.js", "A/B Testing"],
-    category: "Marketing",
-    links: { demo: "#" },
+    links: { 
+      demo: "#",
+      video: "/videos/projects/portfolio-animations.mp4"
+    },
   },
 ];
+
+export default projects;
