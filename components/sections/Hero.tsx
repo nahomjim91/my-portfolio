@@ -4,8 +4,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import * as React from "react";
 
 const roles = ["Web Designer", "Mobile App Developer", "Web Developer", "UI/UX Enthusiast", "Freelancer"];

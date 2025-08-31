@@ -124,7 +124,7 @@ export function Skills() {
   );
 }
 
-function SkillLogo({ name, logo, color }: { name: string; logo: string; color: string }) {
+function SkillLogo({ name, logo }: { name: string; logo: string; color: string }) {
   return (
     <div className="flex-shrink-0 mx-8 group cursor-pointer">
       <div className="w-16 h-16 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1">

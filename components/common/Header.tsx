@@ -9,7 +9,6 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const [scrolled, setScrolled] = React.useState(false);
-  const [active, setActive] = React.useState<string>("about");
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -22,9 +21,7 @@ export function Header() {
     const ids = nav.map((n) => n.id);
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
+       console.log(entries)
       },
       { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.2, 0.5, 1] }
     );

@@ -46,11 +46,11 @@ export function Contact() {
             <div className="space-y-12">
               <div className="space-y-8">
                 <h2 className="text-5xl md:text-6xl font-light tracking-tight">
-                  Let's Work<br />
+                  Let&apos;s Work<br />
                   <span className="text-accent">Together</span>
                 </h2>
                 <p className="text-xl font-light text-muted leading-relaxed max-w-lg">
-                  Ready to bring your vision to life? Let's discuss your next project and create something extraordinary.
+                  Ready to bring your vision to life? Let&apos;s discuss your next project and create something extraordinary.
                 </p>
               </div>
               
@@ -69,90 +69,95 @@ export function Contact() {
                 </div>
               </div>
             </div>
+<div className="space-y-8">
+  <Form {...methods}>
+    <form onSubmit={onSubmit}>
+      <div className="space-y-6">
+        <FormField 
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base font-light">Name</FormLabel>
+              <Input 
+                className="text-lg py-6 border-border/50 rounded-2xl font-light" 
+                placeholder="Your name" 
+                {...field} 
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField 
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base font-light">Email</FormLabel>
+              <Input 
+                type="email" 
+                className="text-lg py-6 border-border/50 rounded-2xl font-light" 
+                placeholder="you@example.com" 
+                {...field} 
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField 
+          name="subject"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base font-light">Subject</FormLabel>
+              <Input 
+                className="text-lg py-6 border-border/50 rounded-2xl font-light" 
+                placeholder="Project inquiry" 
+                {...field} 
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField 
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base font-light">Message</FormLabel>
+              <Textarea 
+                className="text-lg min-h-32 border-border/50 rounded-2xl font-light resize-none" 
+                placeholder="Tell me about your project..." 
+                {...field} 
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+      
+      <Button 
+        type="submit" 
+        className="w-full text-lg py-6 rounded-full font-light group mt-8"
+      >
+        Send Message
+        <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </Button>
+    </form>
+  </Form>
 
-            <div className="space-y-8">
-              <Form methods={methods} onSubmit={onSubmit}>
-                <div className="space-y-6">
-                  <FormField name="name">
-                    {(field: any) => (
-                      <FormItem>
-                        <FormLabel className="text-base font-light">Name</FormLabel>
-                        <Input 
-                          className="text-lg py-6 border-border/50 rounded-2xl font-light" 
-                          placeholder="Your name" 
-                          {...field} 
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  </FormField>
-                  
-                  <FormField name="email">
-                    {(field: any) => (
-                      <FormItem>
-                        <FormLabel className="text-base font-light">Email</FormLabel>
-                        <Input 
-                          type="email" 
-                          className="text-lg py-6 border-border/50 rounded-2xl font-light" 
-                          placeholder="you@example.com" 
-                          {...field} 
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  </FormField>
-                  
-                  <FormField name="subject">
-                    {(field: any) => (
-                      <FormItem>
-                        <FormLabel className="text-base font-light">Subject</FormLabel>
-                        <Input 
-                          className="text-lg py-6 border-border/50 rounded-2xl font-light" 
-                          placeholder="Project inquiry" 
-                          {...field} 
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  </FormField>
-                  
-                  <FormField name="message">
-                    {(field: any) => (
-                      <FormItem>
-                        <FormLabel className="text-base font-light">Message</FormLabel>
-                        <Textarea 
-                          className="text-lg min-h-32 border-border/50 rounded-2xl font-light resize-none" 
-                          placeholder="Tell me about your project..." 
-                          {...field} 
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  </FormField>
-                </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full text-lg py-6 rounded-full font-light group mt-8"
-                >
-                  Send Message
-                  <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Button>
-              </Form>
-
-              {sent && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="rounded-2xl border border-accent/20 bg-accent/10 p-6 text-center"
-                >
-                  <div className="text-lg font-light text-accent">
-                    ✨ Message sent successfully! I'll get back to you soon.
-                  </div>
-                </motion.div>
-              )}
-            </div>
+  {sent && (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="rounded-2xl border border-accent/20 bg-accent/10 p-6 text-center"
+    >
+      <div className="text-lg font-light text-accent">
+        ✨ Message sent successfully! I&apos;ll get back to you soon.
+      </div>
+    </motion.div>
+  )}
+</div>
           </motion.div>
         </div>
       </div>

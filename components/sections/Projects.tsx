@@ -7,8 +7,7 @@ import { useState } from "react";
 import { projects } from "@/lib/constants";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Github, Globe, ArrowUpRight } from "lucide-react";
+import { Github, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const categories = ["All", "Web Design", "UI/UX", "Branding", "E-commerce"] as const;
@@ -62,7 +61,7 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ id, title, description, image, tech, links, index }: (typeof projects)[number] & { index: number }) {
+function ProjectCard({  title, description, image, tech, links, index }: (typeof projects)[number] & { index: number }) {
   const isEven = index % 2 === 0;
   
   return (
@@ -87,7 +86,6 @@ function ProjectCard({ id, title, description, image, tech, links, index }: (typ
           {tech.slice(0, 4).map((t) => (
             <Badge 
               key={t} 
-              variant="secondary" 
               className="text-sm font-light px-4 py-2 rounded-full bg-muted/10 text-muted border-0"
             >
               {t}

@@ -2,9 +2,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import * as React from "react";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export function About() {
   return (

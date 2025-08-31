@@ -2,8 +2,7 @@
 // /components/common/Footer.tsx
 "use client";
 
-import Link from "next/link";
-import { Github, Linkedin, Instagram, ArrowUp, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Instagram, ArrowUp, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -65,7 +64,7 @@ export function Footer() {
               {/* Contact info */}
               <div className="space-y-8">
                 <h4 className="text-xl font-light tracking-wide text-foreground">
-                  Let's Connect
+                  Let&apos;s Connect
                 </h4>
                 <div className="space-y-4">
                   <a 
