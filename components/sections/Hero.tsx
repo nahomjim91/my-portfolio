@@ -40,13 +40,13 @@ export function Hero() {
   const typed = useTyped(roles);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="container">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 scrollbar-hide">
+      <div className="container scrollbar-hide">
         <motion.div 
           variants={staggerContainer} 
           initial="hidden" 
           animate="show" 
-          className="max-w-5xl mx-auto text-center space-y-12"
+          className="max-w-5xl mx-auto text-center space-y-12 scrollbar-hide"
         >
           <motion.p 
             variants={fadeInUp} 

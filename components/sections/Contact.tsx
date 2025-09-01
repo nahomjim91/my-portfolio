@@ -35,7 +35,7 @@ export function Contact() {
   return (
     <section id="contact" className="scroll-mt-24 py-32">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto scrollbar-hide">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,10 +59,10 @@ export function Contact() {
                   <Mail className="h-6 w-6 text-accent" /> 
                   <span>selihom2001@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-4 text-lg font-light">
+                {/* <div className="flex items-center gap-4 text-lg font-light">
                   <Phone className="h-6 w-6 text-accent" /> 
                   <span>+251 996 986 266</span>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-4 text-lg font-light">
                   <MapPin className="h-6 w-6 text-accent" /> 
                   <span>Addis Ababa, Ethiopia</span>

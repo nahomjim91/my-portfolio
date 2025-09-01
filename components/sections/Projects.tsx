@@ -17,9 +17,9 @@ export function Projects() {
   const list = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="scroll-mt-24 py-32">
+    <section id="projects" className="mt-24 py-28 ">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto scrollbar-hide ">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -62,7 +62,7 @@ const skillLogos = [
 export function Skills() {
   return (
     <section id="skills" className="scroll-mt-24 py-32">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 scrollbar-hide">
 
          <motion.div 
             initial={{ opacity: 0, y: 50 }} 

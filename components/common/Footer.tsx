@@ -19,13 +19,13 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-muted/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-muted/5 to-transparent scrollbar-hide" />
       
-      <div className="relative px-4 sm:px-6 lg:px-8">
+      <div className="relative px-4 sm:px-6 lg:px-8 scrollbar-hide ">
         
         {/* Main footer content */}
-        <div className=" py-20">
-          <div className="max-w-7xl mx-auto">
+        <div className=" py-20 ">
+          <div className="max-w-7xl mx-auto scrollbar-hide">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}

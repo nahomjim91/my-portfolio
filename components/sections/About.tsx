@@ -9,7 +9,7 @@ export function About() {
   return (
     <section id="about" className="scroll-mt-24 py-32">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto scrollbar-hide">
           <motion.div 
             initial={{ opacity: 0, y: 50 }} 
             whileInView={{ opacity: 1, y: 0 }} 
