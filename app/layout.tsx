@@ -9,11 +9,11 @@ import { ThemeProvider } from "next-themes";
 export const metadata: Metadata = {
   title: "Selihom – Full-Stack Developer & UI/UX Designer",
   description: "Premium portfolio showcasing development and design work with smooth animations and dark mode.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://selihom.vercel.app"),
   openGraph: {
     title: "Selihom Portfolio",
     description: "Full-Stack Developer & UI/UX Designer",
-    url: "https://example.com",
+    url: "https://selihom.vercel.app",
     type: "website",
   },
 };
