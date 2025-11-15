@@ -15,6 +15,7 @@ const categories = [
   "UI/UX",
   "Branding",
   "E-Commerce",
+  "Portfolio",
 ] as const;
 
 // Letter reveal animation
@@ -110,9 +111,7 @@ export function Projects() {
         <div className="max-w-7xl mx-auto">
           {/* Sticky Header with its own animations */}
           <div className="">
-            <motion.div
-              className="text-center space-y-8"
-            >
+            <motion.div className="text-center space-y-8">
               <div
                 className="overflow-visible"
                 style={{ perspective: "1000px" }}

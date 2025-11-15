@@ -99,7 +99,7 @@ export const projects: Project[] = [
       "Charming bakery website with custom cake ordering and sweet memory creation.",
     image: "/images/projects/sweet-jerry-bakery.png",
     tech: ["React", "Next.js", "TailwindCSS", "Contact Forms"],
-    category: "Business",
+    category: "Portfolio",
     links: {
       demo: "https://sweet-jerry-bakery.vercel.app/",
       github: "https://github.com/nahomjim91/sweet-jerry-bakery",
@@ -139,7 +139,7 @@ export const projects: Project[] = [
     description: "Futuristic, smooth, and responsive portfolio experience.",
     image: "/images/projects/portfolio.png",
     tech: ["Next.js", "Framer Motion"],
-    category: "Web",
+    category: "UI/UX",
     links: {
       demo: "#",
       // video: "/videos/projects/portfolio-animations.mp4"
