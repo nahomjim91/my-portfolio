@@ -4,19 +4,17 @@
   --background: #FFFFF0;
   --foreground: #110904;
   --accent: #B5734C;
-
   --muted: #6B5B47;
   --border: #E5D5C3;
+  --scroll_fadding: #fff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0F0A08;
-    --foreground: #FFFFF0;
-    --accent: #D4956F;
-    --border: #2A1F1A;
-    
-  }
+.dark {
+  --background: #0F0A08;
+  --foreground: #FFFFF0;
+  --accent: #D4956F;
+  --border: #2A1F1A;
+  --scroll_fadding: #0F0A08;
 }
 
 @theme inline {
@@ -25,6 +23,7 @@
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-scroll_fadding: var(--scroll_fadding);
 
   --font-sans: ui-sans-serif, system-ui, sans-serif;
 }
@@ -96,5 +95,8 @@ section {
   scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar {
   display: none;
 }

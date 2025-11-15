@@ -1,4 +1,3 @@
-// /components/sections/Contact.tsx
 "use client";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -8,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Mail, MapPin, Phone, ArrowUpRight, Copy, ExternalLink, Send, MessageCircle, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Mail, MapPin, Copy, ArrowUpRight, Send, MessageCircle, X } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 
 const schema = z.object({
   name: z.string().min(2, "Name is too short"),
@@ -18,13 +17,97 @@ const schema = z.object({
   message: z.string().min(10, "Please write at least 10 characters"),
 });
 
+// Letter reveal animation (from Skills)
+const letterVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+    rotateX: -90,
+  },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      delay: i * 0.05,
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  })as const,
+} ;
+
+// Floating particles (from Skills)
+function FloatingParticles() {
+  const particles = Array.from({ length: 15 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 3 + 1,
+    duration: Math.random() * 15 + 10,
+    delay: Math.random() * 5,
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-accent/50"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            width: particle.size,
+            height: particle.size,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, Math.random() * 20 - 10, 0],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Contact() {
+  const sectionRef = React.useRef<HTMLElement>(null);
   const methods = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
   const [sent, setSent] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [showForm, setShowForm] = React.useState(false);
 
-  // Watch all form fields to enable/disable buttons
+  // Scroll-based animations (from Skills)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const scale = useTransform(
+    smoothProgress,
+    [0, 0.3, 0.7, 1],
+    [0.8, 1, 1, 0.7]
+  );
+
+  const opacity = useTransform(
+    smoothProgress,
+    [0, 0.2, 0.8, 1],
+    [0, 1, 1, 0.3]
+  );
+
+  // Watch all form fields
   const watchedFields = methods.watch();
   const isFormValid = React.useMemo(() => {
     const { name, email, subject, message } = watchedFields;
@@ -39,7 +122,6 @@ export function Contact() {
   }, [watchedFields]);
 
   async function handleSendMessage(method: 'email' | 'telegram') {
-    // Double check validation
     const isValid = await methods.trigger();
     if (!isValid) return;
 
@@ -66,7 +148,6 @@ export function Contact() {
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // This will be handled by the choice buttons now
   }
 
   const copyEmail = () => {
@@ -79,20 +160,39 @@ export function Contact() {
     window.open("mailto:selihom2001@gmail.com", '_blank');
   };
 
+  const title = "Let's Chat".split("");
+
   return (
-    <section id="contact" className="scroll-mt-24 py-32 relative">
+    <section 
+      ref={sectionRef}
+      id="contact" 
+      className="scroll-mt-24 py-32 relative overflow-hidden"
+    >
+      {/* Background effects */}
+      <FloatingParticles />
+
+      {/* Gradient orb (from Skills) */}
+      <motion.div
+        className="absolute top-1/3 right-1/3 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto scrollbar-hide">
+        <div className="max-w-7xl mx-auto">
           
-          {/* Main Hero Section */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            style={{ scale, opacity }}
             className="text-center space-y-16"
           >
-            {/* Header */}
+            {/* Header with letter animation */}
             <div className="space-y-6">
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -104,24 +204,27 @@ export function Contact() {
                 Have a project in mind?
               </motion.p>
               
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="relative"
-              >
-                {/* Decorative element */}
-                <div className="absolute -left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-accent/10 hidden lg:block">
-                  <div className="w-full h-full rounded-full border-2 border-accent/20 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-                  </div>
-                </div>
-                
+              <div className="overflow-visible" style={{ perspective: "1000px" }}>
                 <h2 className="text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter">
-                  Let&apos;s <span className="text-accent">Chat</span>
+                  {title.map((letter, i) => (
+                    <motion.span
+                      key={i}
+                      custom={i}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{  }}
+                      variants={letterVariants}
+                      style={{
+                        display: "inline-block",
+                        transformOrigin: "50% 50%",
+                      }}
+                      className={letter === "C" ? "text-accent" : ""}
+                    >
+                      {letter === " " ? "\u00A0" : letter}
+                    </motion.span>
+                  ))}
                 </h2>
-              </motion.div>
+              </div>
             </div>
 
             {/* Contact Info */}
@@ -132,14 +235,25 @@ export function Contact() {
               transition={{ delay: 0.6, duration: 0.6 }}
               className="space-y-4"
             >
-              <div className="flex items-center justify-center gap-4 text-2xl font-light group cursor-pointer" onClick={copyEmail}>
+              <motion.div 
+                className="flex items-center justify-center gap-4 text-2xl font-light group cursor-pointer" 
+                onClick={copyEmail}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <span className="hover:text-accent transition-colors">selihom2001@gmail.com</span>
                 <Copy className="h-5 w-5 opacity-50 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="flex items-center justify-center gap-4 text-lg font-light text-muted">
+              </motion.div>
+              <motion.div 
+                className="flex items-center justify-center gap-4 text-lg font-light text-muted"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+              >
                 <MapPin className="h-5 w-5" /> 
-                <span>Addis Ababa, Ethiopia</span>
-              </div>
+                <span>Winnipeg, Canada</span>
+              </motion.div>
             </motion.div>
 
             {/* Action Buttons */}
@@ -147,27 +261,41 @@ export function Contact() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.8, duration: 0.6 }}
+              transition={{ delay: 1, duration: 0.6 }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto"
             >
-              <Button
-                onClick={openEmailClient}
-                className="text-xl py-8 px-12 rounded-full font-light group w-full sm:w-auto min-w-64"
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="w-full sm:w-auto"
               >
-                <Mail className="mr-3 h-6 w-6" />
-                Direct Email
-                <ArrowUpRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Button>
+                <Button
+                  onClick={openEmailClient}
+                  className="text-xl py-8 px-12 rounded-full font-light group w-full min-w-64"
+                >
+                  <Mail className="mr-3 h-6 w-6" />
+                  Direct Email
+                  <ArrowUpRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Button>
+              </motion.div>
               
-              <Button
-                onClick={() => window.open('https://t.me/seli_kidu', '_blank')}
-                variant="outline"
-                className="text-xl py-8 px-12 rounded-full font-light group w-full sm:w-auto min-w-64"
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="w-full sm:w-auto"
               >
-                <MessageCircle className="mr-3 h-6 w-6" />
-                Telegram Chat
-                <Send className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Button>
+                <Button
+                  onClick={() => window.open('https://t.me/seli_kidu', '_blank')}
+                  variant="outline"
+                  className="text-xl py-8 px-12 rounded-full font-light group w-full min-w-64"
+                >
+                  <MessageCircle className="mr-3 h-6 w-6" />
+                  Telegram Chat
+                  <Send className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Button>
+              </motion.div>
             </motion.div>
 
             {/* Secondary Form Option */}
@@ -175,7 +303,7 @@ export function Contact() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 1, duration: 0.6 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
               className="pt-16"
             >
               <Button
@@ -244,25 +372,43 @@ export function Contact() {
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
-              className="fixed inset-4 sm:inset-8 md:inset-16 lg:inset-24 bg-foreground  border border-border shadow-2xl z-50 overflow-hidden rounded-3xl"
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed inset-4 sm:inset-8 md:inset-16 lg:inset-24 bg-background border border-border shadow-2xl z-50 overflow-hidden rounded-3xl"
             >
               <div className="h-full flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-8 border-b border-border">
-                  <h3 className="text-2xl font-light">Send a Message</h3>
-                  <Button
-                    onClick={() => setShowForm(false)}
-                    variant="ghost"
-                    size="sm"
-                    className="rounded-full p-2"
+                  <motion.h3 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-2xl font-light"
                   >
-                    <X className="h-5 w-5" />
-                  </Button>
+                    Send a Message
+                  </motion.h3>
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Button
+                      onClick={() => setShowForm(false)}
+                      variant="ghost"
+                      size="sm"
+                      className="rounded-full p-2"
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </motion.div>
                 </div>
 
                 {/* Form Content */}
                 <div className="flex-1 overflow-y-auto p-8">
-                  <div className="max-w-2xl mx-auto">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="max-w-2xl mx-auto"
+                  >
                     <Form {...methods}>
                       <form onSubmit={onSubmit}>
                         <div className="space-y-6">
@@ -330,40 +476,55 @@ export function Contact() {
                         
                         {/* Send Options */}
                         <div className="flex gap-4 mt-8">
-                          <Button 
-                            type="button"
-                            onClick={() => handleSendMessage('email')}
-                            disabled={!isFormValid}
-                            className="flex-1 text-lg py-6 rounded-full font-light group disabled:opacity-50 disabled:cursor-not-allowed"
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex-1"
                           >
-                            <Mail className="mr-2 h-5 w-5" />
-                            Send via Email
-                            <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                          </Button>
-                          <Button 
-                            type="button"
-                            onClick={() => handleSendMessage('telegram')}
-                            disabled={!isFormValid}
-                            variant="outline"
-                            className="flex-1 text-lg py-6 rounded-full font-light group disabled:opacity-50 disabled:cursor-not-allowed"
+                            <Button 
+                              type="button"
+                              onClick={() => handleSendMessage('email')}
+                              disabled={!isFormValid}
+                              className="w-full text-lg py-6 rounded-full font-light group disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              <Mail className="mr-2 h-5 w-5" />
+                              Send via Email
+                              <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Button>
+                          </motion.div>
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex-1"
                           >
-                            <MessageCircle className="mr-2 h-5 w-5" />
-                            Send via Telegram
-                            <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                          </Button>
+                            <Button 
+                              type="button"
+                              onClick={() => handleSendMessage('telegram')}
+                              disabled={!isFormValid}
+                              variant="outline"
+                              className="w-full text-lg py-6 rounded-full font-light group disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              <MessageCircle className="mr-2 h-5 w-5" />
+                              Send via Telegram
+                              <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Button>
+                          </motion.div>
                         </div>
 
-                        {/* Helper text when form is incomplete */}
                         {!isFormValid && (
-                          <div className="mt-4 text-center">
+                          <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="mt-4 text-center"
+                          >
                             <p className="text-sm text-muted font-light">
                               Please fill out all fields to send your message
                             </p>
-                          </div>
+                          </motion.div>
                         )}
                       </form>
                     </Form>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>

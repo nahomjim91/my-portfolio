@@ -9,7 +9,7 @@ const Contact = dynamic(() => import("@/components/sections/Contact").then(m => 
 
 export default function Page() {
   return (
-    <main>
+    <main className="relative">
       <Hero />
       <About />
       <Skills />

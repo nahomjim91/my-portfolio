@@ -1,12 +1,3 @@
-import {
-  LucideIcon,
-  Blocks,
-  Bot,
-  ShoppingCart,
-  LayoutDashboard,
-  Globe,
-  CreditCard,
-} from "lucide-react";
 
 export type Project = {
   id: string;
@@ -66,7 +57,7 @@ export const projects: Project[] = [
       "SEO Optimization",
       "Image Optimization",
     ],
-    category: "Business",
+    category: "Portfolio",
     links: {
       demo: "https://primaeri.com/",
       // video: "/videos/projects/primaeri.mp4"
