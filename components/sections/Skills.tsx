@@ -75,23 +75,42 @@ const letterVariants = {
   }),
 };
 
-// Floating particles
+// Floating particles component
 function FloatingParticles() {
-  const particles = Array.from({ length: 12 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    duration: Math.random() * 15 + 10,
-    delay: Math.random() * 5,
-  }));
+  const [particles, setParticles] = React.useState<Array<{
+    id: number;
+    x: number;
+    y: number;
+    size: number;
+    duration: number;
+    delay: number;
+  }>>([]);
+
+  React.useEffect(() => {
+    // Generate particles only on the client side after mount
+    setParticles(
+      Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 4 + 2,
+        duration: Math.random() * 20 + 10,
+        delay: Math.random() * 5,
+      }))
+    );
+  }, []);
+
+  // Don't render anything until particles are generated on client
+  if (particles.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full bg-gray-400"
+          className="absolute rounded-full bg-accent/20"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
