@@ -185,7 +185,7 @@ export function Contact() {
     <section 
       ref={sectionRef}
       id="contact" 
-      className="scroll-mt-24 py-32 relative overflow-hidden"
+      className="scroll-mt-24 py-12 relative overflow-hidden"
     >
       {/* Background effects */}
       <FloatingParticles />
@@ -323,12 +323,12 @@ export function Contact() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 1.2, duration: 0.6 }}
-              className="pt-16"
+              className="pt-3"
             >
               <Button
                 onClick={() => setShowForm(true)}
                 variant="ghost"
-                className="text-lg font-light text-muted hover:text-accent group"
+                className="text-lg text-center font-light text-muted hover:text-accent group"
               >
                 Or send a detailed message
                 <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

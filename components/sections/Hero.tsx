@@ -259,7 +259,7 @@ export function Hero() {
             scale,
             opacity,
           }}
-          className="max-w-5xl mx-auto text-center space-y-10 md:space-y-12 px-4"
+          className="max-w-5xl mx-auto text-center space-y-10 md:space-y-6 px-4"
         >
           {/* Subtitle */}
           <motion.div variants={slideIn} initial="hidden" animate="visible">
@@ -309,7 +309,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="space-y-3 md:space-y-4"
+            className="space-y-3 md:space-y-2"
           >
             <p className="text-xl md:text-2xl lg:text-3xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               <span className="inline-block min-h-[1.2em]">{typed}</span>
@@ -345,12 +345,12 @@ export function Hero() {
                 },
               },
             }}
-            className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6 py-4 md:py-8"
+            className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6 py-2 md:py-8"
           >
             <motion.div variants={scaleIn}>
               <Button
                 size="lg"
-                className="group text-lg px-8 py-6 rounded-full font-light hover:scale-105 transition-transform"
+                className="group text-lg px-8 py-3 rounded-full font-light hover:scale-105 transition-transform"
                 asChild
               >
                 <a href="#projects">
@@ -363,7 +363,7 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
-                className="group text-lg px-8 py-6 rounded-full font-light hover:scale-105 transition-transform"
+                className="group text-lg px-8 py-3 rounded-full font-light hover:scale-105 transition-transform"
                 asChild
               >
                 <a href="#contact">Get in Touch</a>
