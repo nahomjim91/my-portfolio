@@ -182,7 +182,7 @@ export function Footer() {
                     selihom2001@gmail.com
                   </motion.a>
                   <p className="text-lg font-light text-muted">
-                    Addis Ababa, Ethiopia
+                    Winnipeg, MB Canada
                   </p>
                 </div>
                 

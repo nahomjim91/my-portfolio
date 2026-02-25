@@ -11,11 +11,12 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 const categories = [
   "All",
-  "Web Design",
-  "UI/UX",
-  "Branding",
-  "E-Commerce",
-  "Portfolio",
+  "Commerce",
+  "Luxury & Brand",
+  "Local Business",
+  "Creative Portfolio",
+  "Product & SaaS",
+  "Automation & Bot",
 ] as const;
 
 // Letter reveal animation
@@ -39,14 +40,16 @@ const letterVariants = {
 
 // Floating particles component
 function FloatingParticles() {
-  const [particles, setParticles] = useState<Array<{
-    id: number;
-    x: number;
-    y: number;
-    size: number;
-    duration: number;
-    delay: number;
-  }>>([]);
+  const [particles, setParticles] = useState<
+    Array<{
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
 
   useEffect(() => {
     // Generate particles only on the client side after mount
@@ -58,7 +61,7 @@ function FloatingParticles() {
         size: Math.random() * 4 + 2,
         duration: Math.random() * 20 + 10,
         delay: Math.random() * 5,
-      }))
+      })),
     );
   }, []);
 
@@ -229,14 +232,14 @@ function ProjectCard({
   const cardScale = useTransform(
     smoothProgress,
     [0, 0.3, 0.7, 1],
-    [0.85, 1, 1, 0.85]
+    [0.85, 1, 1, 0.85],
   );
 
   // Opacity: fades in and out
   const cardOpacity = useTransform(
     smoothProgress,
     [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0]
+    [0, 1, 1, 0],
   );
 
   // Stagger animations for content
@@ -251,7 +254,7 @@ function ProjectCard({
           duration: 0.9,
           ease: [0.22, 1, 0.36, 1],
         },
-      } as const),
+      }) as const,
   };
 
   const handleMouseEnter = () => {
@@ -393,6 +396,7 @@ function ProjectCard({
             src={image}
             alt={title}
             fill
+            loading="lazy" // default
             className={`object-cover transition-all duration-700 ${
               isHovered && links?.video
                 ? "opacity-0 scale-105"

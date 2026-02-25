@@ -6,9 +6,29 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Mail, MapPin, Copy, ArrowUpRight, Send, MessageCircle, X } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Mail,
+  MapPin,
+  Copy,
+  ArrowUpRight,
+  Send,
+  MessageCircle,
+  X,
+} from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useSpring,
+} from "framer-motion";
 
 const schema = z.object({
   name: z.string().min(2, "Name is too short"),
@@ -24,28 +44,31 @@ const letterVariants = {
     y: 50,
     rotateX: -90,
   },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transition: {
-      delay: i * 0.05,
-      duration: 0.9,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  })as const,
-} ;
+  visible: (i: number) =>
+    ({
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        delay: i * 0.05,
+        duration: 0.9,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }) as const,
+};
 
 // Floating particles component
 function FloatingParticles() {
-  const [particles, setParticles] = React.useState<Array<{
-    id: number;
-    x: number;
-    y: number;
-    size: number;
-    duration: number;
-    delay: number;
-  }>>([]);
+  const [particles, setParticles] = React.useState<
+    Array<{
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
 
   React.useEffect(() => {
     // Generate particles only on the client side after mount
@@ -57,7 +80,7 @@ function FloatingParticles() {
         size: Math.random() * 4 + 2,
         duration: Math.random() * 20 + 10,
         delay: Math.random() * 5,
-      }))
+      })),
     );
   }, []);
 
@@ -97,7 +120,9 @@ function FloatingParticles() {
 
 export function Contact() {
   const sectionRef = React.useRef<HTMLElement>(null);
-  const methods = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
+  const methods = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+  });
   const [sent, setSent] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [showForm, setShowForm] = React.useState(false);
@@ -117,48 +142,53 @@ export function Contact() {
   const scale = useTransform(
     smoothProgress,
     [0, 0.3, 0.7, 1],
-    [0.8, 1, 1, 0.7]
+    [0.8, 1, 1, 0.7],
   );
 
   const opacity = useTransform(
     smoothProgress,
     [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0.3]
+    [0, 1, 1, 0.3],
   );
 
   // Watch all form fields
   const watchedFields = methods.watch();
   const isFormValid = React.useMemo(() => {
     const { name, email, subject, message } = watchedFields;
-    return name && 
-           email && 
-           subject && 
-           message && 
-           name.length >= 2 && 
-           email.includes('@') && 
-           subject.length >= 2 && 
-           message.length >= 10;
+    return (
+      name &&
+      email &&
+      subject &&
+      message &&
+      name.length >= 2 &&
+      email.includes("@") &&
+      subject.length >= 2 &&
+      message.length >= 10
+    );
   }, [watchedFields]);
 
-  async function handleSendMessage(method: 'email' | 'telegram') {
+  async function handleSendMessage(method: "email" | "telegram") {
     const isValid = await methods.trigger();
     if (!isValid) return;
 
     const formData = methods.getValues();
 
-    if (method === 'email') {
+    if (method === "email") {
       const emailBody = encodeURIComponent(
-        `Hi Selihom,\n\n${formData.message}\n\nBest regards,\n${formData.name}\nEmail: ${formData.email}`
+        `Hi Selihom,\n\n${formData.message}\n\nBest regards,\n${formData.name}\nEmail: ${formData.email}`,
       );
       const emailSubject = encodeURIComponent(formData.subject);
-      window.open(`mailto:selihom2001@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+      window.open(
+        `mailto:selihom2001@gmail.com?subject=${emailSubject}&body=${emailBody}`,
+        "_blank",
+      );
     } else {
       const telegramMessage = encodeURIComponent(
-        `📧 ${formData.subject}\n\nFrom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+        `📧 ${formData.subject}\n\nFrom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
       );
-      window.open(`https://t.me/seli_kidu?text=${telegramMessage}`, '_blank');
+      window.open(`https://t.me/seli_kidu?text=${telegramMessage}`, "_blank");
     }
-    
+
     setSent(true);
     setTimeout(() => setSent(false), 5000);
     methods.reset();
@@ -176,15 +206,15 @@ export function Contact() {
   };
 
   const openEmailClient = () => {
-    window.open("mailto:selihom2001@gmail.com", '_blank');
+    window.open("mailto:selihom2001@gmail.com", "_blank");
   };
 
   const title = "Let's Chat".split("");
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="contact" 
+      id="contact"
       className="scroll-mt-24 py-12 relative overflow-hidden"
     >
       {/* Background effects */}
@@ -206,14 +236,13 @@ export function Contact() {
 
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          
           <motion.div
             style={{ scale, opacity }}
             className="text-center space-y-16"
           >
             {/* Header with letter animation */}
             <div className="space-y-6">
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -222,8 +251,11 @@ export function Contact() {
               >
                 Have a project in mind?
               </motion.p>
-              
-              <div className="overflow-visible" style={{ perspective: "1000px" }}>
+
+              <div
+                className="overflow-visible"
+                style={{ perspective: "1000px" }}
+              >
                 <h2 className="text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter">
                   {title.map((letter, i) => (
                     <motion.span
@@ -231,7 +263,7 @@ export function Contact() {
                       custom={i}
                       initial="hidden"
                       whileInView="visible"
-                      viewport={{  }}
+                      viewport={{}}
                       variants={letterVariants}
                       style={{
                         display: "inline-block",
@@ -247,36 +279,38 @@ export function Contact() {
             </div>
 
             {/* Contact Info */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6, duration: 0.6 }}
               className="space-y-4"
             >
-              <motion.div 
-                className="flex items-center justify-center gap-4 text-2xl font-light group cursor-pointer" 
+              <motion.div
+                className="flex items-center justify-center gap-4 text-2xl font-light group cursor-pointer"
                 onClick={copyEmail}
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <span className="hover:text-accent transition-colors">selihom2001@gmail.com</span>
+                <span className="hover:text-accent transition-colors">
+                  selihom2001@gmail.com
+                </span>
                 <Copy className="h-5 w-5 opacity-50 group-hover:opacity-100 transition-opacity" />
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex items-center justify-center gap-4 text-lg font-light text-muted"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.8 }}
               >
-                <MapPin className="h-5 w-5" /> 
+                <MapPin className="h-5 w-5" />
                 <span>Winnipeg, Canada</span>
               </motion.div>
             </motion.div>
 
             {/* Action Buttons */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -284,13 +318,14 @@ export function Contact() {
               className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto"
             >
               <motion.div
+                onClick={openEmailClient}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 className="w-full sm:w-auto"
               >
                 <Button
-                  onClick={openEmailClient}
+                  // onClick={openEmailClient}
                   className="text-xl py-8 px-12 rounded-full font-light group w-full min-w-64"
                 >
                   <Mail className="mr-3 h-6 w-6" />
@@ -298,15 +333,16 @@ export function Contact() {
                   <ArrowUpRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Button>
               </motion.div>
-              
+
               <motion.div
+                onClick={() => window.open("https://t.me/seli_kidu", "_blank")}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 className="w-full sm:w-auto"
               >
                 <Button
-                  onClick={() => window.open('https://t.me/seli_kidu', '_blank')}
+                  // onClick={() => window.open('https://t.me/seli_kidu', '_blank')}
                   variant="outline"
                   className="text-xl py-8 px-12 rounded-full font-light group w-full min-w-64"
                 >
@@ -318,7 +354,7 @@ export function Contact() {
             </motion.div>
 
             {/* Secondary Form Option */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -348,7 +384,8 @@ export function Contact() {
                     ✨ Message sent successfully!
                   </div>
                   <div className="text-sm font-light text-muted">
-                    Your message has been opened in your preferred app. I&apos;ll get back to you soon!
+                    Your message has been opened in your preferred app.
+                    I&apos;ll get back to you soon!
                   </div>
                 </motion.div>
               )}
@@ -385,7 +422,7 @@ export function Contact() {
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
               onClick={() => setShowForm(false)}
             />
-            
+
             {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -397,7 +434,7 @@ export function Contact() {
               <div className="h-full flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-8 border-b border-border">
-                  <motion.h3 
+                  <motion.h3
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
@@ -422,7 +459,7 @@ export function Contact() {
 
                 {/* Form Content */}
                 <div className="flex-1 overflow-y-auto p-8">
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -431,78 +468,86 @@ export function Contact() {
                     <Form {...methods}>
                       <form onSubmit={onSubmit}>
                         <div className="space-y-6">
-                          <FormField 
+                          <FormField
                             name="name"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-base font-light">Name</FormLabel>
-                                <Input 
-                                  className="text-lg py-6 border-border/50 rounded-2xl font-light" 
-                                  placeholder="Your name" 
-                                  {...field} 
+                                <FormLabel className="text-base font-light">
+                                  Name
+                                </FormLabel>
+                                <Input
+                                  className="text-lg py-6 border-border/50 rounded-2xl font-light"
+                                  placeholder="Your name"
+                                  {...field}
                                 />
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
-                          
-                          <FormField 
+
+                          <FormField
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-base font-light">Email</FormLabel>
-                                <Input 
-                                  type="email" 
-                                  className="text-lg py-6 border-border/50 rounded-2xl font-light" 
-                                  placeholder="you@example.com" 
-                                  {...field} 
+                                <FormLabel className="text-base font-light">
+                                  Email
+                                </FormLabel>
+                                <Input
+                                  type="email"
+                                  className="text-lg py-6 border-border/50 rounded-2xl font-light"
+                                  placeholder="you@example.com"
+                                  {...field}
                                 />
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
-                          
-                          <FormField 
+
+                          <FormField
                             name="subject"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-base font-light">Subject</FormLabel>
-                                <Input 
-                                  className="text-lg py-6 border-border/50 rounded-2xl font-light" 
-                                  placeholder="Project inquiry" 
-                                  {...field} 
+                                <FormLabel className="text-base font-light">
+                                  Subject
+                                </FormLabel>
+                                <Input
+                                  className="text-lg py-6 border-border/50 rounded-2xl font-light"
+                                  placeholder="Project inquiry"
+                                  {...field}
                                 />
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
-                          
-                          <FormField 
+
+                          <FormField
                             name="message"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-base font-light">Message</FormLabel>
-                                <Textarea 
-                                  className="text-lg min-h-40 border-border/50 rounded-2xl font-light resize-none" 
-                                  placeholder="Tell me about your project..." 
-                                  {...field} 
+                                <FormLabel className="text-base font-light">
+                                  Message
+                                </FormLabel>
+                                <Textarea
+                                  className="text-lg min-h-40 border-border/50 rounded-2xl font-light resize-none"
+                                  placeholder="Tell me about your project..."
+                                  {...field}
                                 />
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
                         </div>
-                        
+
                         {/* Send Options */}
-                        <div className="flex gap-4 mt-8">
+                        <div className="flex flex-col md:flex-row justify-center gap-4 mt-8">
                           <motion.div
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="flex-1"
+                            className="md:flex-1 "
                           >
-                            <Button 
+                            <Button
                               type="button"
-                              onClick={() => handleSendMessage('email')}
+                              onClick={() => handleSendMessage("email")}
                               disabled={!isFormValid}
                               className="w-full text-lg py-6 rounded-full font-light group disabled:opacity-50 disabled:cursor-not-allowed"
                             >
@@ -514,11 +559,11 @@ export function Contact() {
                           <motion.div
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="flex-1"
+                            className="md:flex-1"
                           >
-                            <Button 
+                            <Button
                               type="button"
-                              onClick={() => handleSendMessage('telegram')}
+                              onClick={() => handleSendMessage("telegram")}
                               disabled={!isFormValid}
                               variant="outline"
                               className="w-full text-lg py-6 rounded-full font-light group disabled:opacity-50 disabled:cursor-not-allowed"
@@ -531,7 +576,7 @@ export function Contact() {
                         </div>
 
                         {!isFormValid && (
-                          <motion.div 
+                          <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             className="mt-4 text-center"
